@@ -32,7 +32,11 @@ jobs:
           terraform_version: 1.6.6
 
       - name: Move tfvars to auto.tfvars
-        run: mv dev.tfvars dev.auto.tfvars
+        run: |
+          ls -la
+          pwd
+          cd $GITHUB_WORKSPCE
+          mv dev.tfvars dev.auto.tfvars
 
       - name: Terraform Init (Dev)
         run: terraform init
