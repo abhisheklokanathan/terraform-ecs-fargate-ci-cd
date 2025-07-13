@@ -36,7 +36,7 @@ jobs:
           ls -la
           pwd
           cd $GITHUB_WORKSPCE
-          mv dev.tfvars dev.auto.tfvars
+          #mv dev.tfvars dev.auto.tfvars
 
       - name: Terraform Init (Dev)
         run: terraform init
