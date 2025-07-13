@@ -8,7 +8,7 @@ terraform {
 
   backend "s3" {
     bucket = "databucketfortfs3"
-    key    = "demo/awsinfra.tfstate"
+    key    = "demo/awsinfra-dev.tfstate"
     region = "ap-south-1"
     dynamodb_table = "terraform_state"
     encrypt = true
