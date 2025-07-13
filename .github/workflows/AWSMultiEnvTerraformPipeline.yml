@@ -51,7 +51,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: AWS-Multi-Region-Deployment
+        working-directory: terraform-ecs-fargate-ci-cd
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3.1.0
@@ -89,7 +89,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: AWS-Multi-Region-Deployment
+        working-directory: terraform-ecs-fargate-ci-cd
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3.1.0
@@ -125,7 +125,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: AWS-Multi-Region-Deployment
+        working-directory: terraform-ecs-fargate-ci-cd
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3.1.0
