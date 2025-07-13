@@ -1,0 +1,157 @@
+name: AWSMultiEnvTerraformPipeline
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform_plan_dev:
+    if: github.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    environment: dev
+    defaults:
+      run:
+        shell: bash
+        working-directory: AWS-Multi-Region-Deployment
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3.1.0
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.RoleARN }}
+          aws-region: us-east-1 
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.6
+
+      - name: Move tfvars to auto.tfvars
+        run: mv dev.tfvars dev.auto.tfvars
+
+      - name: Terraform Init (Dev)
+        run: terraform init
+
+      - name: Terraform Validate (Dev)
+        run: terraform validate
+
+      - name: Terraform Plan (Dev)
+        run: terraform plan
+
+  terraform_apply_dev:
+    if: github.ref == 'refs/heads/develop'
+    needs: terraform_plan_dev
+    runs-on: ubuntu-latest
+    environment: dev
+    defaults:
+      run:
+        shell: bash
+        working-directory: AWS-Multi-Region-Deployment
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3.1.0
+
+      - name: Configure AWS Credentials for Dev
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.RoleARN }}
+          aws-region: us-east-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.6
+
+      - name: Move tfvars to auto.tfvars
+        run: mv dev.tfvars dev.auto.tfvars
+  
+      - name: Terraform Init (Dev)
+        run: terraform init
+  
+      - name: Terraform Validate (Dev)
+        run: terraform validate
+  
+      - name: Terraform Plan (Dev)
+        run: terraform plan
+
+      - name: Terraform Apply (Dev)
+        run: terraform apply -auto-approve
+
+  terraform_plan_uat:
+    if: github.ref == 'refs/heads/release'
+    runs-on: ubuntu-latest
+    environment: uat
+    defaults:
+      run:
+        shell: bash
+        working-directory: AWS-Multi-Region-Deployment
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3.1.0
+
+      - name: Configure AWS Credentials for UAT
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.RoleARN }}
+          aws-region: us-east-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.6
+
+      - name: Move tfvars to auto.tfvars
+        run: mv uat.tfvars uat.auto.tfvars
+
+      - name: Terraform Init (UAT)
+        run: terraform init
+
+      - name: Terraform Validate (UAT)
+        run: terraform validate
+
+      - name: Terraform Plan (UAT)
+        run: terraform plan
+
+  terraform_apply_uat:
+    if: github.ref == 'refs/heads/release'
+    needs: terraform_plan_uat
+    runs-on: ubuntu-latest
+    environment: uat
+    defaults:
+      run:
+        shell: bash
+        working-directory: AWS-Multi-Region-Deployment
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3.1.0
+
+      - name: Configure AWS Credentials for UAT
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.RoleARN }}
+          aws-region: us-east-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.6.6
+
+      - name: Move tfvars to auto.tfvars
+        run: mv uat.tfvars uat.auto.tfvars
+  
+      - name: Terraform Init (UAT)
+        run: terraform init
+  
+      - name: Terraform Validate (UAT)
+        run: terraform validate
+  
+      - name: Terraform Plan (UAT)
+        run: terraform plan
+
+      - name: Terraform Apply (UAT)
+        run: terraform apply -auto-approve
