@@ -67,8 +67,8 @@ jobs:
         with:
           terraform_version: 1.6.6
 
-      - name: Move tfvars to 
-        run: mv dev.tfvars dev.
+      - name: Move tfvars to auto.tfvars
+        run: mv dev.tfvars dev.auto.tfvars
   
       - name: Terraform Init (Dev)
         run: terraform init
@@ -105,8 +105,8 @@ jobs:
         with:
           terraform_version: 1.6.6
 
-      - name: Move tfvars to 
-        run: mv uat.tfvars uat.
+      - name: Move tfvars to auto.tfvars
+        run: mv uat.tfvars uat.auto.tfvars
 
       - name: Terraform Init (UAT)
         run: terraform init
@@ -141,8 +141,8 @@ jobs:
         with:
           terraform_version: 1.6.6
 
-      - name: Move tfvars to 
-        run: mv uat.tfvars uat.
+      - name: Move tfvars to auto.tfvars
+        run: mv uat.tfvars uat.auto.tfvars
   
       - name: Terraform Init (UAT)
         run: terraform init
