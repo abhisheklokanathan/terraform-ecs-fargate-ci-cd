@@ -1,1 +1,0 @@
-aws_sns_topic_name = "dev_sns_topic"
