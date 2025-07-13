@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   terraform_plan_dev:
-    if: github.ref == 'refs/heads/develop'
+    #if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     environment: dev
     defaults:
@@ -83,7 +83,7 @@ jobs:
         run: terraform apply -auto-approve
 
   terraform_plan_uat:
-    if: github.ref == 'refs/heads/release'
+    #if: github.ref == 'refs/heads/release'
     runs-on: ubuntu-latest
     environment: uat
     defaults:
