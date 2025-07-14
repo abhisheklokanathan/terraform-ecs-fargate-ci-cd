@@ -80,7 +80,7 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply (Dev)
-        run: terraform apply -auto-approve
+        run: terraform destroy -auto-approve
 
   terraform_plan_uat:
     if: github.ref == 'refs/heads/release'
@@ -154,4 +154,4 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply (UAT)
-        run: terraform apply -auto-approve
+        run: terraform destroy -auto-approve
