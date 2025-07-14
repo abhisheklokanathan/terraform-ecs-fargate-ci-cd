@@ -83,7 +83,7 @@ jobs:
         run: terraform apply -auto-approve
 
   terraform_plan_uat:
-    if: github.ref == 'refs/heads/release'
+    if: github.ref == 'refs/heads/release-destroy'
     runs-on: ubuntu-latest
     environment: uat
     defaults:
@@ -118,7 +118,7 @@ jobs:
         run: terraform plan
 
   terraform_apply_uat:
-    if: github.ref == 'refs/heads/release'
+    if: github.ref == 'refs/heads/release-destroy'
     needs: terraform_plan_uat
     runs-on: ubuntu-latest
     environment: uat
@@ -154,4 +154,4 @@ jobs:
         run: terraform plan
 
       - name: Terraform Apply (UAT)
-        run: terraform apply -auto-approve
+        run: terraform destroy -auto-approve
