@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   terraform_plan_dev:
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/develop-destroy'
     runs-on: ubuntu-latest
     environment: dev
     defaults:
@@ -44,7 +44,7 @@ jobs:
         run: terraform plan
 
   terraform_apply_dev:
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/develop-destroy'
     needs: terraform_plan_dev
     runs-on: ubuntu-latest
     environment: dev
